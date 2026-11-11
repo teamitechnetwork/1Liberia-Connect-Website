@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "One Liberia Connect"
+description = "A modern website for One Liberia Connect, connecting communities across Liberia through affordable internet, school technology hubs, and diaspora partnerships."
+version = "1.0.0"
+id = "artifacts/one-liberia-connect"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20344
+
+[services.development]
+run = "pnpm --filter @workspace/one-liberia-connect run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/one-liberia-connect", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/one-liberia-connect/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20344"
+BASE_PATH = "/"
